@@ -15,4 +15,7 @@ parents.
 # How does this work?
 
 You must specify the branch dependencies in a `.dependent_branches.json`
-file. See the comments in `.dependent_branches.json.example`
+file. See the comments in `.dependent_branches.json.example`. Put the
+script in your `PATH` and make sure it's executable. Then you can call
+`git_cascade [branch_name]`, where `branch_name` is the branch that you
+want the updates to cascade from.
