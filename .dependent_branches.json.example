@@ -1,5 +1,7 @@
+// each key is a branch name and each value
+// is an array of its descendant branches
 {
-  "master": ["branch_1"],
-  "branch_1": ["branch_2"],
-  "branch_2": []
+  "master": ["branch_1"], // branch_1 was branched off of master
+  "branch_1": ["branch_2"], // branch_2 was branched off of branch_1
+  "branch_2": [] // branch_2 has no descendants
 }
