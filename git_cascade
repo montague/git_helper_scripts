@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+
+require 'json'
+require 'open3'
+
+def prompt
+  puts "Proceed? 'y' for yes, anything else for no."
+  if STDIN.gets.chomp != 'y'
+    puts "Exiting."
+    exit 1
+  end
+end
+
+def show_message(msg = nil)
+  puts "*" * 50
+  block_given? ? yield : (puts msg)
+  puts "*" * 50
+end
+
+def rebase_dependent_branches(parent_branch, hash)
+  return unless hash[parent_branch] && hash[parent_branch].any?
+  dependent_branches = hash[parent_branch]
+  dependent_branches.each do |branch|
+    show_message "About to rebase #{branch} onto #{parent_branch}"
+    prompt
+    stdout, stderr, status = Open3.capture3("git rebase #{parent_branch} #{branch}")
+    puts stdout
+    if status.exitstatus != 0
+      show_message do
+        puts "!!!!!!!!!!Error!!!!!!!!!!"
+        puts stderr
+      end
+      exit status.exitstatus
+    end
+  end
+  dependent_branches.each do |branch|
+    rebase_dependent_branches(branch, hash)
+  end
+end
+
+current_branch = `git rev-parse --abbrev-ref HEAD`
+branches = JSON.parse(File.read('.dependent_branches.json'))
+rebase_dependent_branches(ARGV.shift, branches)
+# switch back to the branch we were on initially
+`git checkout #{current_branch}`

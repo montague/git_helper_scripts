@@ -1,0 +1,5 @@
+{
+  "master": ["branch_1"],
+  "branch_1": ["branch_2"],
+  "branch_2": []
+}
