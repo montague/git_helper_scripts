@@ -1,20 +1,15 @@
 # GitIntegrate
 
-**TODO: Add description**
+Given a list of branches, create an integration branch that merges them
+all.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+Put the `git_integrate` executable in your `PATH`.
 
-  1. Add git_integrate to your list of dependencies in `mix.exs`:
+## Usage
 
-        def deps do
-          [{:git_integrate, "~> 0.0.1"}]
-        end
-
-  2. Ensure git_integrate is started before your application:
-
-        def application do
-          [applications: [:git_integrate]]
-        end
-
+The following things are assumed:
+* You're going to branch off of a branch called `develop`.
+* You have a `.integration_branches.json` file that lists the branches
+  you want merged into your integration branch.
