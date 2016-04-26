@@ -3,7 +3,7 @@ defmodule GitIntegrate do
 
   @integration_file ".integration_branches.json"
 
-  def main(args) do
+  def main(_args) do
     base = "develop"
     integration = get_integration_branch
     create_integration_branch(base, integration)
