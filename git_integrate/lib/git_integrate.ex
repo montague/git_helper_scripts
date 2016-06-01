@@ -5,17 +5,9 @@ defmodule GitIntegrate do
 
   def main(_args) do
     base = "develop"
-    integration = get_integration_branch
-    create_integration_branch(base, integration)
+    create_integration_branch(base, "i")
     get_branches |> merge_branches
-    IO.puts "Built integration branch: #{integration}"
-  end
-
-  def get_integration_branch do
-    suffix = :erlang.system_time
-              |> to_string
-              |> String.slice(-6..-1)
-    "integration-branch-#{suffix}"
+    IO.puts "Built integration branch"
   end
 
   def create_integration_branch(base, integration) do
